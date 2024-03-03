@@ -1,41 +1,47 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import UserLogin from '../components/UserLogin.vue';
-import ExploreMusic from '../components/ExploreMusic.vue';
-import MusicLibrary from '../components/MusicLibrary.vue';
-import MusicPlaylist from '../components/MusicPlaylist.vue';
-import MusicAlbum from '../components/MusicAlbum.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import LoginView from '../views/LoginView.vue'
+import ExploreView from '../views/ExploreView.vue'
+import LibraryView from '../views/LibraryView.vue'
+import PlaylistView from '../views/PlaylistView.vue'
 
-const routes = [
-    {
-        path: '/login',
-        name: 'UserLogin',
-        component: UserLogin
-    },
-    {
-        path: '/explore',
-        name: 'ExploreMusic',
-        component: ExploreMusic
-    },
-    {
-        path: '/library',
-        name: 'MusicLibrary',
-        component: MusicLibrary
-    },
-    {
-        path: '/playlist',
-        name: 'MusicPlaylist',
-        component: MusicPlaylist
-    },
-    {
-        path: '/album',
-        name: 'MusicAlbum',
-        component: MusicAlbum
-    }
-];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes
-});
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
+      path: '/explore',
+      name: 'explore',
+      component: ExploreView
+    },
+    {
+      path: '/library',
+      name: 'library',
+      component: LibraryView
+    },
+    {
+      path: '/playlist/<pid>',
+      name: '/playlist/<pid>',
+      component: PlaylistView,
+      prop: true
+    },
+    {
+      path: '/album/<pid>',
+      name: '/album/<pid>',
+      component: PlaylistView,
+      prop: true
+    }
+  ]
+})
 
-export default router;
+export default router

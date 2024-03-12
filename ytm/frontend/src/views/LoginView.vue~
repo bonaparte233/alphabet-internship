@@ -1,0 +1,13 @@
+<script setup>
+
+import Login from "@/components/Login.vue";
+import PlaylistView from "@/views/PlaylistView.vue";
+</script>
+
+<template>
+  <PlaylistView />
+</template>
+
+<style scoped>
+
+</style>

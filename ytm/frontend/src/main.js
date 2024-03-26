@@ -17,7 +17,6 @@ const vuetify = createVuetify({
     directives,
 })
 
-
 app.use(router)
 
 app.use(AudioPlayer)

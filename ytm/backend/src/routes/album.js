@@ -37,7 +37,7 @@ router.get('/init', async (ctx) => {
 
 router.get('/album', async (ctx) => {
     try {
-      const albums = await Album.find({ type: 'album' });
+      const albums = await Album.find({ type: 'album', public: true });
         ctx.body = {
             data: albums,
             total: albums.length

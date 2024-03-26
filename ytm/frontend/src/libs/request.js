@@ -4,23 +4,70 @@ const instance = axios.create({
   baseURL: '/api',
   timeout: 60000
 })
-const defaultOpt = {login: true}
+const defaultOpt = { login: true }
+
+// request interceptor
+instance.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers['Authorization'] = `Bear ${token}`
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
+
+ instance.interceptors.response.use(
+      response => {
+        const res = response
+        if (res.status === 401) {
+          window.location.href = '/login';
+          return Promise.reject(res);
+        }
+        if (res.status !== 200) {
+          return Promise.reject(new Error(res.data.msg || 'Error'))
+        } else {
+          return res.data
+        }
+      },
+      error => {
+        window.location.href = '/login';
+        return Promise.reject(error)
+      }
+    )
 
 function baseRequest(options) {
-  const token = ''
-  const headers = options.headers || {}
-  if (token) {
-    // headers['X-Token'] = token
-    // options.headers = headers
-  }
   return new Promise((resolve, reject) => {
+
+    // instance.interceptors.response.use(
+    //   response => {
+    //     const res = response
+    //     if (res.status === 401) {
+    //       window.location.href = '/login';
+    //       return
+    //       return Promise.reject(res);
+    //     }
+    //     if (res.status !== 200) {
+    //       return Promise.reject(new Error(res.data.msg || 'Error'))
+    //     } else {
+    //       return resolve(res.data)
+    //     }
+    //   },
+    //   error => {
+    //     window.location.href = '/login';
+    //     return Promise.reject(error)
+    //   }
+    // )
+
     instance(options).then(res => {
-      const data = res.data || {}
-      if (res.status !== 200) {
-        return reject({message: '请求失败', res, data})
-      }
+      const data = res || {}
       return resolve(data, res)
-    }).catch(message => reject({message}));
+    }).catch(message => {
+      reject({message})
+    });
   })
 }
 

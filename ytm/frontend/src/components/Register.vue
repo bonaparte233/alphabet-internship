@@ -13,42 +13,43 @@
         rounded="lg"
     >
       <div class="text-subtitle-1 text-medium-emphasis">Account</div>
+
       <v-form ref="formRef">
-      <v-text-field
-        v-model="form.name"
+        <v-text-field
+          v-model="form.name"
           :rules="rules.name"
-          required
           density="compact"
           placeholder="Email address"
           prepend-inner-icon="mdi-email-outline"
           variant="outlined"
-      ></v-text-field>
+          required
+        ></v-text-field>
 
-      <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
-        Password
+        <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">
+          Password
 
-        <a
-            class="text-caption text-decoration-none text-blue"
-            href="#"
-            rel="noopener noreferrer"
-            target="_blank"
-        >
-          Forgot login password?</a>
-      </div>
+          <a
+              class="text-caption text-decoration-none text-blue"
+              href="#"
+              rel="noopener noreferrer"
+              target="_blank"
+          >
+            Forgot login password?</a>
+        </div>
 
-      <v-text-field
-          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="visible ? 'text' : 'password'"
+        <v-text-field
           v-model="form.secret"
           :rules="rules.secret"
           required
+          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="visible ? 'text' : 'password'"
           density="compact"
           placeholder="Enter your password"
           prepend-inner-icon="mdi-lock-outline"
           variant="outlined"
           @click:append-inner="visible = !visible"
-      ></v-text-field>
-    </v-form>
+        ></v-text-field>
+      </v-form>
 
       <v-card
           class="mb-12"
@@ -66,19 +67,19 @@
           size="large"
           variant="tonal"
           block
-          @click="loginHandler"
+          @click="registerHandler"
       >
-        Log In
+        Sign up
       </v-btn>
 
       <v-card-text class="text-center">
         <a
             class="text-blue text-decoration-none"
-            href="/register"
+            href="/login"
             rel="noopener noreferrer"
             target="_self"
         >
-          Sign up now <v-icon icon="mdi-chevron-right"></v-icon>
+          Log In <v-icon icon="mdi-chevron-right"></v-icon>
         </a>
       </v-card-text>
     </v-card>
@@ -87,13 +88,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { loginApi } from '@/api/user'
-import { nanoid } from 'nanoid'
+import { registerApi } from '@/api/user'
 
 const router = useRouter()
 
 const visible = ref(false)
-
 const formRef = ref(null)
 
 const form = ref({
@@ -110,17 +109,13 @@ const rules = {
   ]
 }
 
-const loginHandler = async () => {
+const registerHandler = async () => {
   const { valid } = await formRef.value.validate()
   if (!valid) return
-  const playing = nanoid()
-  loginApi({...form.value, playing}).then((res) => {
-    localStorage.setItem('mid', playing)
-    localStorage.setItem('token', res.data.token)
-    localStorage.setItem('user', JSON.stringify(res.data.user))
-    router.push('/explore')
-  }).catch((err) => {
-    console.log(err)
+  registerApi(form.value).then(() => {
+    router.push('/login')
+  }).catch(() => {
+    
   })
 }
 </script>

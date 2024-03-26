@@ -48,4 +48,5 @@ onMounted(() => {
   padding: 4px;
 }
 
+/* Style your card as needed */
 </style>

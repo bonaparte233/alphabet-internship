@@ -5,6 +5,7 @@ import ExploreView from '../views/ExploreView.vue'
 import LibraryView from '../views/LibraryView.vue'
 import PlaylistView from '../views/PlaylistView.vue'
 import AlbumDetailView from '../views/AlbumDetail.vue'
+import RegisterView from '@/views/RegisterView.vue'
 
 
 const router = createRouter({
@@ -23,6 +24,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView
     },
     {
       path: '/explore',

@@ -5,6 +5,11 @@ import { useRouter } from 'vue-router'
 
 axios.defaults.baseURL = '/api'
 
+const token = localStorage.getItem('token')
+if (token) {
+  axios.defaults.headers['Authorization'] = `Bear ${token}`
+}
+
 const { proxy } = getCurrentInstance()
 
 const router = useRouter()
@@ -63,55 +68,16 @@ const toDetail = () => {
 </script>
 
 <template>
-  <v-bottom-sheet inset>
-    <template v-slot:activator="{ props }">
-      <div class="text-center">
-        <v-card
-            class="mx-auto"
-            height="200"
-            :image="imgUrl"
-            max-width="200"
-            theme="dark"
-            :title="props.showTitle ? item.name : ''"
-            v-bind="props"
-            @click="toDetail"
-        ></v-card>
-      </div>
-
-    </template>
-
-    <v-sheet>
-      <v-progress-linear model-value="50"></v-progress-linear>
-
-      <v-list>
-        <v-list-item>
-          <v-list-item-title>{{ props }}</v-list-item-title>
-
-          <v-list-item-subtitle>Author</v-list-item-subtitle>
-
-          <template v-slot:append>
-            <v-btn
-                icon="mdi-rewind"
-                variant="text"
-            ></v-btn>
-
-            <v-btn
-                :class="{ 'mx-5': display.mdAndUp.value }"
-                icon="mdi-pause"
-                variant="text"
-            ></v-btn>
-
-            <v-btn
-                :class="{ 'me-3': display.mdAndUp.value }"
-                class="ms-0"
-                icon="mdi-fast-forward"
-                variant="text"
-            ></v-btn>
-          </template>
-        </v-list-item>
-      </v-list>
-    </v-sheet>
-  </v-bottom-sheet>
+<v-card
+    class="mx-auto"
+    height="200"
+    :image="imgUrl"
+    max-width="200"
+    theme="dark"
+    :title="props.showTitle ? item.name : ''"
+    v-bind="props"
+    @click="toDetail"
+></v-card>
 </template>
 
 

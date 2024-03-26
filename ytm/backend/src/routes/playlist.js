@@ -5,7 +5,7 @@ const Playlist = require('../models/playlistSchema').PlaylistIndex;
 
 router.get('/playlist', async (ctx) => {
     try {
-        const playlists = await Playlist.find({ type: 'playlist' });
+        const playlists = await Playlist.find({ type: 'playlist', public: true });
         ctx.body = {
             data: playlists,
             total: playlists.length

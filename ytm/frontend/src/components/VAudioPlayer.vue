@@ -1,4 +1,4 @@
-script>
+<script>
 import {useDisplay} from "vuetify";
 
 export default {

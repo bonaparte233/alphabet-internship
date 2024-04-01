@@ -19,7 +19,7 @@
             </template>
 
             <div class="list-item-content">
-              <div class="title">{{ item.name }}. {{ item.author }}</div>
+              <div class="title">{{ item.name }}</div>
               <div class="subtitle">{{ item.description }} • {{ item.liked }} Liked</div>
             </div>
           </v-list-item>
@@ -36,7 +36,7 @@
             </template>
 
             <div class="list-item-content">
-              <div class="title">{{ item.name }}. {{ item.author }}</div>
+              <div class="title">{{ item.name }}</div>
               <div class="subtitle">{{ item.description }} • {{ item.liked }} Liked</div>
             </div>
           </v-list-item>

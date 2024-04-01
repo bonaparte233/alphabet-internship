@@ -10,7 +10,7 @@ router.get('/track/init', async (ctx) => {
   try {
 
     const track = new Track({
-      track_id: '1',
+      track_id: '3',
       title: '偷看',
       artist: ['李汉颖'],
       album: '东方班得瑞',

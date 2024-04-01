@@ -24,7 +24,7 @@ const libraryIndexSchema = new mongoose.Schema({
 const LibraryIndex = mongoose.model('LibraryIndex', libraryIndexSchema);
 
 function createUserLibraryModel(uid) {
-    const userLibrarySchema = new Schema({
+    const userLibrarySchema = new mongoose.Schema({
         type: {
             type: String,
             enum: ['track', 'album', 'playlist'],
@@ -34,7 +34,7 @@ function createUserLibraryModel(uid) {
             type: String,
             required: true
         },
-        added_date: Number
+        added_date: Date
     });
 
     return mongoose.model(`u_${uid}`, userLibrarySchema);

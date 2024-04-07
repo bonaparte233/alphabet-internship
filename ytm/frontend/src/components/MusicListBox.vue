@@ -139,7 +139,7 @@ onMounted(() => {
       const url = downloadAudio(item.track_id)
       return {
         name: item.title,
-        url: `http://127.0.0.1:3000/${item.file}`
+        url: `http://127.0.0.1:3003/${item.file}`
       }
     })
   })
